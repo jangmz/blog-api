@@ -1,11 +1,8 @@
 import { Router } from "express";
+import commentsController from "../controllers/comment.js";
 
 const commentRouter = Router();
 
-commentRouter.get("/", (req, res) => {
-    res.json({
-        message: "This is GET comments route.",
-    })
-})
+commentRouter.get("/", commentsController.getComments);
 
 export default commentRouter;

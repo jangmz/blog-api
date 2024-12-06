@@ -1,11 +1,8 @@
 import { Router } from "express";
+import postsController from "../controllers/post.js";
 
 const postRouter = Router();
 
-postRouter.get("/", (req, res) => {
-    res.json({
-        message: "This is GET posts route.",
-    })
-})
+postRouter.get("/", postsController.getPosts);
 
 export default postRouter;
