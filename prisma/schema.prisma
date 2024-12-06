@@ -19,32 +19,33 @@ model Post {
   content   String
   created   DateTime
   updated   DateTime?
-  published Boolean
+  published Boolean   @default(false)
+  comments  Comment[]
   authorId  Int
-  author    Author    @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id])
 }
 
 model Comment {
-  id       Int      @id @default(autoincrement())
-  content  String
-  created  DateTime
-  userId   Int?
-  user     User?    @relation(fields: [userId], references: [id])
-  authorId Int?
-  author   Author?  @relation(fields: [authorId], references: [id])
-}
-
-model Author {
-  id       Int       @id @default(autoincrement())
-  username String
-  email    String
-  posts    Post[]
-  comments Comment[]
+  id      Int      @id @default(autoincrement())
+  content String
+  created DateTime
+  postId  Int
+  userId  Int
+  post    Post     @relation(fields: [postId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
 }
 
 model User {
   id       Int       @id @default(autoincrement())
-  username String
-  email    String
+  username String    @unique
+  password String
+  email    String    @unique
+  role     Role      @default(USER)
+  posts    Post[]
   comments Comment[]
+}
+
+enum Role {
+  USER // reads posts, writes comments
+  AUTHOR // write/edit/delete posts, writes/deletes comments
 }
