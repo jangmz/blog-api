@@ -38,5 +38,6 @@ async function deleteComment(commentId) {
 }
 
 export default {
-    
+    createComment,
+    deleteComment,
 }
