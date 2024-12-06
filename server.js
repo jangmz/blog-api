@@ -21,7 +21,6 @@ app.use(express.json());
 
 
 // routes
-app.use("/", router.home);
 app.use("/users", router.user);
 app.use("/posts", router.post);
 app.use("/comments", router.comment);
