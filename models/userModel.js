@@ -21,6 +21,38 @@ async function createUser(user) {
     }
 }
 
+// find user by username
+async function findUserByUsername(username) {
+    try {
+        const user = await prisma.user.findMany({
+            where: {
+                username: username
+            }
+        })
+
+        return user;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to find user with user ID (${userId}): ${error.message}`);
+    }
+}
+
+// find user by email
+async function findUserByEmail(email) {
+    try {
+        const user = await prisma.user.findMany({
+            where: {
+                email: email
+            }
+        })
+
+        return user;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to find user with user ID (${userId}): ${error.message}`);
+    }
+}
+
 // find user by ID
 async function findUserById(userId) {
     try {
@@ -74,6 +106,9 @@ async function deleteUser(user) {
 
 export default {
     createUser,
+    findUserByUsername,
+    findUserByEmail,
     findUserById,
+    changeUserRole,
     deleteUser
 }
