@@ -40,7 +40,7 @@ async function updatePost(post) {
         console.log("Post updated: ", updatedPost);
     } catch (error) {
         console.error(error);
-        throw new Error("Failed to create a post:", error);
+        throw new Error(`Failed to update a post with ID ${post.id}.`);
     }
 }
 
@@ -50,16 +50,29 @@ async function deletePost(postId) {
         const deletedPost = await prisma.post.delete({
             where: {
                 id: postId
-            },
-            include: {
-                comments
             }
         })
 
-        console.log(`Post (id: ${deletedPost.id}) deleted.`);
+        console.log(`Post deleted (id: ${deletedPost.id}).`);
     } catch (error) {
         console.error(error);
         throw new Error(`Failed to delete post with ID ${postId}. Error: ${error}`);
+    }
+}
+
+// return a post by ID
+async function getPostById(postId) {
+    try {
+        const post = await prisma.post.findUnique({
+            where: {
+                id: postId
+            }
+        });
+
+        return post;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed retrieving post with ID ${postId}.`);
     }
 }
 
@@ -111,6 +124,7 @@ export default {
     createPost,
     updatePost,
     deletePost,
+    getPostById,
     getAllPosts,
     getPublishedPosts,
     getUnpublishedPosts,
