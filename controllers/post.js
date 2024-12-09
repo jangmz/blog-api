@@ -12,6 +12,21 @@ async function getPosts(req, res) {
     }
 }
 
+// GET /posts/:postId -> gets a single article with comments
+async function getPost(req, res) {
+    const postId = parseInt(req.params.postId);
+
+    try {
+        // get post data with the comments
+        const postData = await postModel.getPostById(postId);
+
+        res.status(200).json({ postData });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 // POST /posts/new -> creates new article
 async function postNewPost(req, res) {
     // data for new post
@@ -69,6 +84,7 @@ async function updatePost(req, res) {
 
 export default {
     getPosts,
+    getPost,
     postNewPost,
     deletePost,
     updatePost,
@@ -81,5 +97,7 @@ post = {
     created (date)
     published (bool)
     authorId
+    comments[]
+    updated
 }
 */
