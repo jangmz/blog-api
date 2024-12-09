@@ -9,10 +9,10 @@ function getUsers(req, res) {
     })
 }
 
-// POST /users -> create a user, validate input
+// POST /users/sign-up -> create a user, validate input
 async function postUsers(req, res) {
     // check for any errors
-    const errors = validationResult(req); // should return errors but didn't
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         console.log(errors);
@@ -21,17 +21,16 @@ async function postUsers(req, res) {
 
     // if there are no errors, save data
     const user = req.body;
-    console.log("Inputed data: ", user);
-    console.log("Inputed data: ", req.body);
 
     try {
         // encrypt password
         const saltRounds = 10;
         user.password = await bcrypt.hash(user.password1, saltRounds);
+        delete user.password1;
+        delete user.password2;
 
         // insert into DB
-        // await userModel.createUser(user);
-        console.log("New user added: ", user);
+        await userModel.createUser(user);
 
         res.status(200).json({ user });
     } catch (error) {

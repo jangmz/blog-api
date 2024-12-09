@@ -5,6 +5,6 @@ import userCreationValidation from "../validation/userValidation.js";
 const usersRouter = Router();
 
 usersRouter.get("/", userController.getUsers);
-usersRouter.post("/", userCreationValidation, userController.postUsers);
+usersRouter.post("/sign-up", userCreationValidation, userController.postUsers);
 
 export default usersRouter;
