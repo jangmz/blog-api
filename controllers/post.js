@@ -63,7 +63,6 @@ async function deletePost(req, res) {
 async function updatePost(req, res) {
     const editedPost = req.body;
     editedPost.id = parseInt(req.params.postId);
-    //editedPost.published = Boolean(editedPost.published);
 
     try {
         // update
@@ -82,12 +81,48 @@ async function updatePost(req, res) {
     }
 }
 
+// PUT /posts/publish/:postId
+async function publishPost(req, res) {
+    const postId = parseInt(req.params.postId);
+
+    try {
+        const post = await postModel.publishPost(postId);
+
+        res.status(200).json({ 
+            message: "Post published.",
+            post
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// PUT /posts/unpublish/:postId
+async function unpublishPost(req, res) {
+    const postId = parseInt(req.params.postId);
+
+    try {
+        const post = await postModel.unpublishPost(postId);
+
+        res.status(200).json({ 
+            message: "Post unpublished.",
+            post
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 export default {
     getPosts,
     getPost,
     postNewPost,
     deletePost,
     updatePost,
+    publishPost,
+    unpublishPost,
 }
 
 /* 

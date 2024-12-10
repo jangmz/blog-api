@@ -44,6 +44,45 @@ async function updatePost(post) {
     }
 }
 
+// publish post
+async function publishPost(postId) {
+    try {
+        const post = await prisma.post.update({
+            where: {
+                id: postId
+            },
+            data: {
+                published: true
+            }
+        })
+
+        console.log(`Post ID ${postId} published!`);
+        return post;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to publish post ID ${postId}: ${error.message}`);
+    }
+}
+
+// unpublish post
+async function unpublishPost(postId) {
+    try {
+        const post = await prisma.post.update({
+            where: {
+                id: postId
+            },
+            data: {
+                published: false
+            }
+        })
+        console.log(`Post ID ${postId} unpublished.`);
+        return post;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to publish post ID ${postId}: ${error.message}`);
+    }
+}
+
 // delete post by ID
 async function deletePost(postId) {
     try {
@@ -66,6 +105,9 @@ async function getPostById(postId) {
         const post = await prisma.post.findUnique({
             where: {
                 id: postId
+            },
+            include: {
+                comments: true
             }
         });
 
@@ -123,6 +165,8 @@ async function getUnpublishedPosts() {
 export default {
     createPost,
     updatePost,
+    publishPost,
+    unpublishPost,
     deletePost,
     getPostById,
     getAllPosts,
