@@ -2,7 +2,6 @@ import express from "express";
 import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
-import passport from "passport";
 import router from "./routes/index.js";
 
 const app = express();
@@ -21,6 +20,7 @@ app.use(express.json());
 
 
 // routes
+app.use("/", router.index);
 app.use("/users", router.user);
 app.use("/posts", router.post);
 app.use("/comments", router.comment);
