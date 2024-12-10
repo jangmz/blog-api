@@ -15,6 +15,7 @@ async function createComment(comment) {
         })
 
         console.log("New comment added.");
+        return newComment;
     } catch (error) {
         console.error(error);
         throw new Error("Failed to create a comment:", error);
