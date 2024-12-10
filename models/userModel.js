@@ -89,11 +89,11 @@ async function changeUserRole(user) {
 }
 
 // delete user account
-async function deleteUser(user) {
+async function deleteUser(userId) {
     try {
         const deletedUser = await prisma.user.delete({
             where: {
-                id: user.id
+                id: userId
             }
         })
 

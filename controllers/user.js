@@ -2,13 +2,6 @@ import userModel from "../models/userModel.js";
 import { matchedData, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 
-// GET /users
-function getUsers(req, res) {
-    res.json({
-        message: "This is GET users route.",
-    })
-}
-
 // POST /users/sign-up -> create a user, validate input
 async function postUsers(req, res) {
     // check for any errors
@@ -32,13 +25,27 @@ async function postUsers(req, res) {
         // insert into DB
         await userModel.createUser(user);
 
-        res.status(200).json({ user });
+        res.status(200).json({ message: "Sign up successfull." });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
+// DELETE /users/delete/:userId 
+async function deleteUser(req, res) {
+    const userId = parseInt(req.params.userId);
+
+    try {
+        await userModel.deleteUser(userId);
+
+        res.status(200).json({ message: "User account successfully deleted." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 export default {
-    getUsers,
     postUsers,
+    deleteUser,
 }
