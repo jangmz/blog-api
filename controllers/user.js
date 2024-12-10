@@ -31,7 +31,7 @@ async function postUsers(req, res) {
     }
 }
 
-// DELETE /users/delete/:userId 
+// DELETE /users/:userId 
 async function deleteUser(req, res) {
     const userId = parseInt(req.params.userId);
 

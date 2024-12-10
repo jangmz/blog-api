@@ -5,6 +5,6 @@ import userCreationValidation from "../validation/userValidation.js";
 const usersRouter = Router();
 
 usersRouter.post("/sign-up", userCreationValidation, userController.postUsers);
-usersRouter.delete("/delete/:userId", userController.deleteUser);
+usersRouter.delete("/:userId", userController.deleteUser);
 
 export default usersRouter;

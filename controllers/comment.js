@@ -1,6 +1,6 @@
 import commentModel from "../models/commentModel.js";
 
-// POST /comments/new
+// POST /comments
 async function postNewComment(req, res) {
     const comment = req.body;
     comment.postId = parseInt(comment.postId);
@@ -19,7 +19,7 @@ async function postNewComment(req, res) {
     }
 }
 
-// DELETE /comments/delete/:commentId
+// DELETE /comments/:commentId
 async function deleteComment(req, res) {
     const commentId = parseInt(req.params.commentId);
 

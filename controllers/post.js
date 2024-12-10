@@ -27,7 +27,7 @@ async function getPost(req, res) {
     }
 }
 
-// POST /posts/new -> creates new article
+// POST /posts -> creates new article
 async function postNewPost(req, res) {
     // data for new post
     const newPost = req.body;
@@ -45,7 +45,7 @@ async function postNewPost(req, res) {
     }
 }
 
-// DELETE /posts/delete/:postId -> deletes the post by ID
+// DELETE /posts/:postId -> deletes the post by ID
 async function deletePost(req, res) {
     const postId = parseInt(req.params.postId);
 
@@ -59,7 +59,7 @@ async function deletePost(req, res) {
     }
 }
 
-// PUT /posts/update/:postID -> updates existing post by ID
+// PUT /posts/:postID -> updates existing post by ID
 async function updatePost(req, res) {
     const editedPost = req.body;
     editedPost.id = parseInt(req.params.postId);
