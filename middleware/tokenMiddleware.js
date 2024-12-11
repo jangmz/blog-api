@@ -1,4 +1,7 @@
-function verifyToken(req, res, next) {
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+
+function extractToken(req, res, next) {
     // authentication header value
     const bearerHeader = req.headers["authorization"];
 
@@ -9,8 +12,22 @@ function verifyToken(req, res, next) {
         req.token = bearerToken; // insert token in the request
         next();
     } else {
-        res.status(403).json({ message: "Forbidden access." });
+        return res.status(500).json({ message: "Internal error with JWT (req)." });
     }
 }
 
-export default verifyToken;
+function verifyToken(req, res, next) {
+    jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+        if (err) {
+            return res.status(403).json({ message: "Forbidden access." });
+        }
+
+        req.user = authData;
+        next();
+    })
+}
+
+export default {
+    extractToken,
+    verifyToken,
+}
