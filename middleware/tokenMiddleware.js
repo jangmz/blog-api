@@ -13,6 +13,4 @@ function verifyToken(req, res, next) {
     }
 }
 
-export default {
-    verifyToken,
-}
+export default verifyToken;
