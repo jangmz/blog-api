@@ -1,6 +1,7 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 // POST /log-in -> check credentials, create JWT
 async function userLogIn(req, res) {
@@ -23,7 +24,7 @@ async function userLogIn(req, res) {
 
         // generate & send JWT
         console.log("Generating token...");
-        jwt.sign({ user }, "secretkey", { expiresIn: "1h" }, (err, token) => {
+        jwt.sign({ user }, process.env.SECRET, { expiresIn: "1h" }, (err, token) => {
             if (err) {
                 throw new Error("Generating JWT failed.");
             }
