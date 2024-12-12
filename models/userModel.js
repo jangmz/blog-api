@@ -97,7 +97,7 @@ async function deleteUser(userId) {
             }
         })
 
-        console.log(`User (id: ${deletedUser.id}) ${deletedUser.username} deleted successfully.`);
+        console.log(`User (id: ${deletedUser.id}) ${deletedUser.username} and all of the associated posts/comments deleted successfully.`);
     } catch (error) {
         console.error(error);
         throw new Error("Failed to delete a user:", error);
