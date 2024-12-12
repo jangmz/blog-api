@@ -22,7 +22,7 @@ model Post {
   published Boolean   @default(false)
   comments  Comment[]
   authorId  Int
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Comment {
@@ -31,8 +31,8 @@ model Comment {
   created DateTime
   postId  Int
   userId  Int
-  post    Post     @relation(fields: [postId], references: [id])
-  user    User     @relation(fields: [userId], references: [id])
+  post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
