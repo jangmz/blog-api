@@ -11,17 +11,15 @@ export function verifyAuthorToken(req, res, next) {
 
         req.token = bearerToken; // insert token in the request
     } else {
-        return res.status(403).json({ message: "Forbidden access. User token missing, please log in." });
+        return res.status(401).json({ message: "Forbidden access. User token missing, please log in." });
     }
 
-    jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+    jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if (err) {
-            return res.status(403).json({ message: "Forbidden access." });
+            return res.status(403).json({ message: "Forbidden access. Token is not valid" });
         }
 
         req.user = authData.user;
-
-        console.log(req.user);
 
         if (req.user.role === "AUTHOR") {
             next();
@@ -44,14 +42,14 @@ export function verifyUserToken(req, res, next) {
         return res.status(500).json({ message: "Forbidden access. User token missing, please log in." });
     }
 
-    jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+    jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if (err) {
             return res.status(403).json({ message: "Forbidden access." });
         }
 
         req.user = authData.user;
 
-        if (req.user.role === "USER" || "AUTHOR") {
+        if (req.user.role === "USER" || req.user.role === "AUTHOR") {
             next();
         } else {
             return res.status(403).json({ message: "Forbidden access. You need to be a registered user." });
