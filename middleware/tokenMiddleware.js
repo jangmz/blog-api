@@ -21,7 +21,7 @@ export function verifyAuthorToken(req, res, next) {
 
         req.user = authData.user;
 
-        //console.log(req.user);
+        console.log(req.user);
 
         if (req.user.role === "AUTHOR") {
             next();
@@ -49,7 +49,7 @@ export function verifyUserToken(req, res, next) {
             return res.status(403).json({ message: "Forbidden access." });
         }
 
-        req.user = authData;
+        req.user = authData.user;
 
         if (req.user.role === "USER" || "AUTHOR") {
             next();
