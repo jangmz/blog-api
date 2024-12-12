@@ -4,7 +4,7 @@ import commentModel from "../models/commentModel.js";
 async function postNewComment(req, res) {
     const comment = req.body;
     comment.postId = parseInt(comment.postId);
-    comment.userId = parseInt(comment.userId);
+    comment.userId = parseInt(req.user.id);
     
     try {
         const newComment = await commentModel.createComment(comment);

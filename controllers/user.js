@@ -35,6 +35,10 @@ async function postUsers(req, res) {
 async function deleteUser(req, res) {
     const userId = parseInt(req.params.userId);
 
+    if (userId !== req.user.id) {
+        return res.status(403).json({ message: "You do not have permissions for that action." });
+    }
+
     try {
         await userModel.deleteUser(userId);
 
