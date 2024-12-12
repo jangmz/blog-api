@@ -32,7 +32,7 @@ async function postNewPost(req, res) {
     // data for new post
     const newPost = req.body;
     newPost.created = new Date();
-    newPost.authorId = 2; // change when JWT is implemented
+    newPost.authorId = parseInt(req.user.id);
 
     try {
         // insert into DB
