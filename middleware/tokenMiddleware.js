@@ -19,7 +19,7 @@ export function verifyAuthorToken(req, res, next) {
             return res.status(403).json({ message: "Forbidden access. Token is not valid" });
         }
 
-        req.user = decodedUser;
+        req.user = decodedUser.user;
 
         if (req.user.role === "AUTHOR") {
             next();
@@ -42,7 +42,7 @@ export function verifyUserToken(req, res, next) {
         return res.status(500).json({ message: "Forbidden access. User token missing, please log in." });
     }
 
-    console.log("Middleware token check: ", req.token);
+    //console.log("Middleware token check: ", req.token);
 
     jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, decodedUser) => {
         if (err) {
@@ -50,11 +50,11 @@ export function verifyUserToken(req, res, next) {
             return res.status(403).json({ message: "Forbidden access." });
         }
 
-        console.log("Middleware decoded User: ",decodedUser);
+        //console.log("Middleware decoded User: ",decodedUser);
 
         req.user = decodedUser.user;
 
-        console.log("Middleware:",req.user);
+        //console.log("Middleware:",req.user);
 
         if (req.user.role === "USER" || req.user.role === "AUTHOR") {
             next();

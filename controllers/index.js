@@ -24,9 +24,9 @@ async function userLogIn(req, res) {
         }
 
         // generate JWT (access & refresh) & save refreshToken
-        console.log("First access token user object: ", user); // no pre "user" only {}
-        const accessToken = generateAccessToken(user); // user token works
-        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET) // no pre "user" only {}
+        //console.log("First access token user object: ", user);
+        const accessToken = generateAccessToken(user);
+        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
         
         await refreshTokenModel.insertToken(refreshToken);
 
@@ -55,7 +55,7 @@ async function refreshToken(req, res) {
             return res.status(403);
         }
 
-        console.log("Refresh token for user: ", user);
+        //console.log("Refresh token for user: ", user);
         const accessToken = generateAccessToken(user);
 
         res.json({ accessToken });
@@ -76,8 +76,8 @@ async function userLogOut(req, res) {
 
 // function for generating access token
 function generateAccessToken(user) {
-    console.log("Generating access token for user: ", {user});
-    return jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1m" });
+    //console.log("Generating access token for user: ", {user});
+    return jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
 }
 
 export default {
