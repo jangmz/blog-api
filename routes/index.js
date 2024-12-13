@@ -7,6 +7,8 @@ import indexController from "../controllers/index.js";
 const index = Router();
 
 index.post("/log-in", indexController.userLogIn);
+index.delete("/log-out", indexController.userLogOut);
+index.post("/token", indexController.refreshToken);
 
 export default {
     user,
