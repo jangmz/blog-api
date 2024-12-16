@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // middleware
-
+app.use(cors());
 
 // routes
 app.use("/", router.index);
