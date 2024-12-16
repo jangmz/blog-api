@@ -5,7 +5,7 @@ async function getPosts(req, res) {
     try {
         const allPosts = await postModel.getAllPosts();
 
-        res.status(200).json({ allPosts });
+        res.status(200).json(allPosts);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error })
@@ -20,7 +20,7 @@ async function getPost(req, res) {
         // get post data with the comments
         const postData = await postModel.getPostById(postId);
 
-        res.status(200).json({ postData });
+        res.status(200).json(postData);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
@@ -38,7 +38,7 @@ async function postNewPost(req, res) {
         // insert into DB
         await postModel.createPost(newPost);
 
-        res.status(200).json({ newPost });        
+        res.status(200).json(newPost);        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
