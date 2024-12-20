@@ -140,6 +140,25 @@ async function getPublishedPosts() {
         const publishedPosts = await prisma.post.findMany({
             where: {
                 published: true
+            }, 
+            include: {
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                username: true,
+                                role: true
+                            }
+                        }
+                    }
+                },
+                author: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
             }
         });
 

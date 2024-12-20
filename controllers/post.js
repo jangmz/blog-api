@@ -1,6 +1,17 @@
 import postModel from "../models/postModel.js";
 
-// GET /posts -> get all posts
+// GET /posts -> all published posts
+async function getPublishedPosts(req, res) {
+    try {
+        const allPublishedPosts = await postModel.getPublishedPosts();
+        res.json(allPublishedPosts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error });
+    }
+}
+
+// GET /posts/all -> get all posts
 async function getPosts(req, res) {
     try {
         const allPosts = await postModel.getAllPosts();
@@ -116,6 +127,7 @@ async function unpublishPost(req, res) {
 }
 
 export default {
+    getPublishedPosts,
     getPosts,
     getPost,
     postNewPost,

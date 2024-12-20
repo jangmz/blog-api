@@ -4,8 +4,9 @@ import { verifyAuthorToken, verifyUserToken } from "../middleware/tokenMiddlewar
 
 const postRouter = Router();
 
-postRouter.get("/", postsController.getPosts);
-postRouter.get("/:postId", postsController.getPost);
+postRouter.get("/", postsController.getPublishedPosts); // public
+postRouter.get("/all", verifyAuthorToken, postsController.getPosts); // published and unpublished
+postRouter.get("/:postId", postsController.getPost); // unused
 postRouter.post("/", verifyAuthorToken, postsController.postNewPost)
 postRouter.delete("/:postId", verifyAuthorToken, postsController.deletePost);
 postRouter.put("/:postId", verifyAuthorToken,postsController.updatePost);
