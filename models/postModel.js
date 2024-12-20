@@ -118,10 +118,14 @@ async function getPostById(postId) {
     }
 }
 
-// return all posts (published and unpublished)
+// return all posts with all comments (published and unpublished)
 async function getAllPosts() {
     try {
-        const allPosts = await prisma.post.findMany();
+        const allPosts = await prisma.post.findMany({
+            include: {
+                comments: true
+            }
+        });
 
         return allPosts;
     } catch (error) {
