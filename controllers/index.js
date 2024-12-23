@@ -66,8 +66,11 @@ async function refreshToken(req, res) {
 async function userLogOut(req, res) {
     // on log out remove refresh token in database
     try {
-        await refreshTokenModel.deleteToken(req.body.token);
-        res.status(204);
+        const result = await refreshTokenModel.deleteToken(req.body.token);
+        if (!result) {
+            console.log("Token not found. User is logged out.")
+        }
+        res.status(204).send();
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message, message: "Error logging out."});
