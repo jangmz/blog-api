@@ -11,7 +11,7 @@ async function postNewComment(req, res) {
 
         res.status(200).json({ 
             message: "New comment added.",
-            newComment 
+            comment: newComment
         });
     } catch (error) {
         console.error(error);
