@@ -104,11 +104,32 @@ async function deleteUser(userId) {
     }
 }
 
+async function updateUser(user) {
+    try {
+        const updatedUser = await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
+        })
+
+        return updatedUser
+    } catch (error) {
+        console.error(error);
+        throw new Error("Failed to update a user: ", error);
+    }
+}
+
 export default {
     createUser,
     findUserByUsername,
     findUserByEmail,
     findUserById,
     changeUserRole,
-    deleteUser
+    deleteUser,
+    updateUser,
 }

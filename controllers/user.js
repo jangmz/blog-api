@@ -49,7 +49,33 @@ async function deleteUser(req, res) {
     }
 }
 
+// PUT /users/:userId
+async function updateUser(req, res) {
+    // check for any errors
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        console.log(errors);
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // if there are no errors, save data*/
+    const user = req.body;
+
+    console.log("New user data: ", user);
+
+    try {
+        const updatedUser = await userModel.updateUser(user);
+        console.log("Updated data: ", updatedUser)
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.message })
+    }    
+}
+
 export default {
     postUsers,
     deleteUser,
+    updateUser,
 }

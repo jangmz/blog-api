@@ -7,5 +7,6 @@ const usersRouter = Router();
 
 usersRouter.post("/sign-up", userCreationValidation, userController.postUsers);
 usersRouter.delete("/:userId", verifyUserToken, userController.deleteUser);
+usersRouter.put("/:userId", verifyUserToken, userController.updateUser);
 
 export default usersRouter;
