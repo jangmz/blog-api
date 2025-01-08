@@ -122,6 +122,11 @@ async function getPostById(postId) {
 async function getAllPosts() {
     try {
         const allPosts = await prisma.post.findMany({
+            orderBy: [
+                {
+                    created: "desc"
+                }
+            ],
             include: {
                 comments: true
             }
@@ -159,7 +164,12 @@ async function getPublishedPosts() {
                         username: true
                     }
                 }
-            }
+            },
+            orderBy: [
+                {
+                    created: "desc"
+                }
+            ]
         });
 
         return publishedPosts;
