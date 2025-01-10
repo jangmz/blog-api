@@ -122,14 +122,30 @@ async function getPostById(postId) {
 async function getAllPosts() {
     try {
         const allPosts = await prisma.post.findMany({
+            include: {
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                username: true,
+                                role: true
+                            }
+                        }
+                    }
+                },
+                author: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
+            },
             orderBy: [
                 {
                     created: "desc"
                 }
-            ],
-            include: {
-                comments: true
-            }
+            ]
         });
 
         return allPosts;
