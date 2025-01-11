@@ -1,7 +1,7 @@
 # Blog API
 Backend for blog web app (API).
 
-API URL: [Blog API](#) - Will be available soon.
+API URL: [Blog API](https://blog-api-koa8.onrender.com)
 
 ## Description
 This web API is made with Express, PostgreSQL database and Prisma ORM. API creates new users or authors, handles logging in and out, genereates and verifies json web tokens for authorization and fetches/manages posts and comments. 
